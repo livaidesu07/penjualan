@@ -3,6 +3,9 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import mysql.connector
 from mysql.connector import Error
 from datetime import date
+import os
+import base64
+import tempfile
 
 app = Flask(__name__)
 app.secret_key = "kunci_aplikasi_penjualan"
@@ -10,15 +13,42 @@ app.secret_key = "kunci_aplikasi_penjualan"
 
 def koneksi_database():
     try:
+        host = os.environ.get("DB_HOST")
+        port = int(os.environ.get("DB_PORT", "26223"))
+        user = os.environ.get("DB_USER")
+        password = os.environ.get("DB_PASSWORD")
+        database = os.environ.get("DB_NAME", "defaultdb")
+
+        ca_base64 = os.environ.get("DB_SSL_CA_BASE64")
+        ca_path = os.environ.get("DB_SSL_CA_PATH")
+
+        if ca_base64:
+            ca_file = os.path.join(tempfile.gettempdir(), "aiven-ca.pem")
+
+            with open(ca_file, "wb") as file:
+                file.write(base64.b64decode(ca_base64))
+
+        elif ca_path:
+            ca_file = ca_path
+
+        else:
+            raise ValueError("Sertifikat SSL database belum dikonfigurasi.")
+
         koneksi = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="db_penjualan"
+            host=host,
+            port=port,
+            user=user,
+            password=password,
+            database=database,
+            ssl_ca=ca_file,
+            ssl_verify_cert=True,
+            ssl_verify_identity=True,
+            use_pure=True
         )
+
         return koneksi
 
-    except Error as e:
+    except (Error, ValueError, OSError) as e:
         print("Gagal terhubung ke database:", e)
         return None
 

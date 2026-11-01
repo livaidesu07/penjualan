@@ -6,3 +6,8 @@ venv/
 .env.*
 !.env.example
 .vscode/
+cek_aiven.py
+import_aiven.py
+test_aiven.py
+.env
+
