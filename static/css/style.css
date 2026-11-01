@@ -221,3 +221,29 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+/* TOPBAR ACTIONS */
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.topbar-actions form {
+    margin: 0;
+}
+
+.logout-button {
+    background: #b83232;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logout-button:hover {
+    background: #922626;
+}

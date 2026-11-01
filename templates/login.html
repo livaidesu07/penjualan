@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Administrator | POS Penjualan</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+
+    <main class="login-container">
+
+        <section class="login-left">
+            <div class="brand">
+                <div class="brand-icon">P</div>
+                <span>POS PENJUALAN</span>
+            </div>
+
+            <div class="welcome">
+                <span class="eyebrow">MANAGEMENT SYSTEM</span>
+
+                <h1>Kelola Penjualan<br>
+                    Lebih Mudah.</h1>
+
+                <p>
+                    Sistem informasi penjualan untuk membantu
+                    mengelola pelanggan, barang, transaksi,
+                    dan laporan dalam satu tempat.
+                </p>
+            </div>
+
+            <div class="left-footer">
+                © 2026 POS Penjualan. All rights reserved.
+            </div>
+        </section>
+
+        <section class="login-right">
+
+            <div class="login-card">
+
+                <div class="login-heading">
+                    <span class="login-label">ADMINISTRATOR ACCESS</span>
+                    <h2>Selamat Datang!</h2>
+                    <p>Silakan login untuk melanjutkan.</p>
+                </div>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert {{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST" action="{{ url_for('login') }}">
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Masukkan username"
+                            autocomplete="username"
+                            required
+                            autofocus
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+
+                        <div class="password-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Masukkan password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                onclick="togglePassword()"
+                                aria-label="Tampilkan password"
+                            >
+                                Lihat
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Masuk ke Dashboard
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+                <div class="login-note">
+                    <span class="lock-icon">▣</span>
+                    Akses khusus Administrator
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        function togglePassword() {
+            const password = document.getElementById("password");
+            const button = document.querySelector(".toggle-password");
+
+            if (password.type === "password") {
+                password.type = "text";
+                button.textContent = "Sembunyikan";
+            } else {
+                password.type = "password";
+                button.textContent = "Lihat";
+            }
+        }
+    </script>
+
+</body>
+</html>

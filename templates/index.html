@@ -24,11 +24,22 @@
 
     <main class="main-content">
         <header class="topbar">
-            <div>
-                <h1>Dashboard</h1>
-                <p>Selamat datang di Sistem Informasi Penjualan.</p>
-            </div>
-            <span class="admin-label">Administrator</span>
+             <div>
+        <h1>Dashboard</h1>
+        <p>Selamat datang di Sistem Informasi Penjualan.</p>
+    </div>
+
+    <div class="topbar-actions">
+        <span class="admin-label">
+            {{ session.get('nama_lengkap', 'Administrator') }}
+        </span>
+
+        <form action="{{ url_for('logout') }}" method="POST">
+            <button type="submit" class="logout-button">
+                Logout
+            </button>
+        </form>
+    </div>
         </header>
 
         <section class="welcome-card">

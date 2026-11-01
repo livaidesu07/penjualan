@@ -1,5 +1,11 @@
+from flask import (
+    Flask, render_template, request,
+    redirect, url_for, flash, session
+)
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from functools import wraps
+from werkzeug.security import check_password_hash
+
 import mysql.connector
 from mysql.connector import Error
 from datetime import date
@@ -7,9 +13,105 @@ import os
 import base64
 import tempfile
 
-app = Flask(__name__)
-app.secret_key = "kunci_aplikasi_penjualan"
+from dotenv import load_dotenv
 
+load_dotenv()
+
+app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY")
+
+if not app.secret_key:
+    raise RuntimeError("SECRET_KEY belum dikonfigurasi.")
+
+from functools import wraps
+from flask import session
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+
+        if "user_id" not in session:
+            flash("Silakan login terlebih dahulu.", "error")
+            return redirect(url_for("login"))
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if "user_id" in session:
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+
+        if not username or not password:
+            flash("Username dan password wajib diisi.", "error")
+            return redirect(url_for("login"))
+
+        db = koneksi_database()
+
+        if db is None:
+            flash("Koneksi database gagal.", "error")
+            return redirect(url_for("login"))
+
+        cursor = None
+
+        try:
+            cursor = db.cursor(dictionary=True)
+
+            cursor.execute("""
+                SELECT id_user, username, password,
+                       nama_lengkap, role
+                FROM users
+                WHERE username = %s
+                LIMIT 1
+            """, (username,))
+
+            user = cursor.fetchone()
+
+            if user and check_password_hash(user["password"], password):
+
+                if user["role"] != "admin":
+                    flash("Akun tidak memiliki akses Administrator.", "error")
+                    return redirect(url_for("login"))
+
+                session.clear()
+                session["user_id"] = user["id_user"]
+                session["username"] = user["username"]
+                session["nama_lengkap"] = user["nama_lengkap"]
+                session["role"] = user["role"]
+
+                flash("Login berhasil. Selamat datang!", "success")
+                return redirect(url_for("index"))
+
+            flash("Username atau password salah.", "error")
+
+        except Error as e:
+            print("Kesalahan login:", e)
+            flash("Terjadi kesalahan saat login.", "error")
+
+        finally:
+            if cursor is not None:
+                cursor.close()
+
+            db.close()
+
+    return render_template("login.html")
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+
+    session.clear()
+
+    flash("Anda berhasil logout.", "success")
+
+    return redirect(url_for("login"))
 
 def koneksi_database():
     try:
@@ -20,7 +122,10 @@ def koneksi_database():
         database = os.environ.get("DB_NAME", "defaultdb")
 
         ca_base64 = os.environ.get("DB_SSL_CA_BASE64")
-        ca_path = os.environ.get("DB_SSL_CA_PATH")
+        ca_path = os.environ.get(
+            "DB_SSL_CA_PATH",
+            r"C:\xampp\htdocs\xampp\mysql-certificate\ca.pem"
+        )
 
         if ca_base64:
             ca_file = os.path.join(tempfile.gettempdir(), "aiven-ca.pem")
@@ -28,11 +133,8 @@ def koneksi_database():
             with open(ca_file, "wb") as file:
                 file.write(base64.b64decode(ca_base64))
 
-        elif ca_path:
-            ca_file = ca_path
-
         else:
-            raise ValueError("Sertifikat SSL database belum dikonfigurasi.")
+            ca_file = ca_path
 
         koneksi = mysql.connector.connect(
             host=host,
@@ -52,8 +154,8 @@ def koneksi_database():
         print("Gagal terhubung ke database:", e)
         return None
 
-
 @app.route("/")
+@login_required
 def index():
     db = koneksi_database()
 
@@ -88,6 +190,7 @@ def index():
             db.close()
 
 @app.route("/pelanggan")
+@login_required
 def pelanggan():
     db = koneksi_database()
 
@@ -121,6 +224,7 @@ def pelanggan():
 
 
 @app.route("/pelanggan/tambah", methods=["GET", "POST"])
+@login_required
 def tambah_pelanggan():
     if request.method == "POST":
         id_pelanggan = request.form["id_pelanggan"].strip()
@@ -164,6 +268,7 @@ def tambah_pelanggan():
 
 
 @app.route("/pelanggan/edit/<id_pelanggan>", methods=["GET", "POST"])
+@login_required
 def edit_pelanggan(id_pelanggan):
     db = koneksi_database()
 
@@ -221,6 +326,7 @@ def edit_pelanggan(id_pelanggan):
 
 
 @app.route("/pelanggan/hapus/<id_pelanggan>", methods=["POST"])
+@login_required
 def hapus_pelanggan(id_pelanggan):
     db = koneksi_database()
 
@@ -258,6 +364,7 @@ def hapus_pelanggan(id_pelanggan):
     return redirect(url_for("pelanggan"))
 
 @app.route("/barang")
+@login_required
 def barang():
     db = koneksi_database()
 
@@ -291,6 +398,7 @@ def barang():
 
 
 @app.route("/barang/tambah", methods=["GET", "POST"])
+@login_required
 def tambah_barang():
     if request.method == "POST":
         id_barang = request.form["id_barang"].strip()
@@ -344,6 +452,7 @@ def tambah_barang():
 
 
 @app.route("/barang/edit/<id_barang>", methods=["GET", "POST"])
+@login_required
 def edit_barang(id_barang):
     db = koneksi_database()
 
@@ -413,6 +522,7 @@ def edit_barang(id_barang):
 
 
 @app.route("/barang/hapus/<id_barang>", methods=["POST"])
+@login_required
 def hapus_barang(id_barang):
     db = koneksi_database()
 
@@ -477,6 +587,7 @@ def buat_id_detail(cursor):
     return f"DTL{nomor:07d}"
 
 @app.route("/transaksi")
+@login_required
 def transaksi():
     db = koneksi_database()
 
@@ -523,6 +634,7 @@ def transaksi():
 
 
 @app.route("/transaksi/tambah", methods=["GET", "POST"])
+@login_required
 def tambah_transaksi():
 
     db = koneksi_database()
@@ -714,6 +826,7 @@ def tambah_transaksi():
 
 
 @app.route("/laporan")
+@login_required
 def laporan():
     db = koneksi_database()
 
@@ -753,6 +866,7 @@ def laporan():
 
 
 @app.route("/laporan/detail/<id_transaksi>")
+@login_required
 def detail_laporan(id_transaksi):
     db = koneksi_database()
 
@@ -810,6 +924,7 @@ def detail_laporan(id_transaksi):
     )
 
 @app.route("/laporan/rekapitulasi")
+@login_required
 def rekapitulasi_laporan():
     db = koneksi_database()
 

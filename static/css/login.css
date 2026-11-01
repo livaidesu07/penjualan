@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f3f5f9;
+    color: #202b3c;
+    min-height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* BAGIAN KIRI */
+
+.login-left {
+    width: 48%;
+    background: linear-gradient(145deg, #172b4d, #243f68);
+    color: white;
+    padding: 55px 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #e8b85c;
+    color: #172b4d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.welcome {
+    max-width: 500px;
+}
+
+.eyebrow {
+    color: #e8b85c;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.welcome h1 {
+    font-size: clamp(34px, 4vw, 52px);
+    line-height: 1.2;
+    margin: 22px 0;
+    font-weight: 700;
+}
+
+.welcome p {
+    color: #d1d9e5;
+    line-height: 1.9;
+    font-size: 15px;
+    max-width: 430px;
+}
+
+.left-footer {
+    color: #aebbd0;
+    font-size: 12px;
+}
+
+/* BAGIAN KANAN */
+
+.login-right {
+    width: 52%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+.login-heading {
+    margin-bottom: 32px;
+}
+
+.login-label {
+    color: #b08335;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.login-heading h2 {
+    font-size: 32px;
+    margin: 14px 0 8px;
+    color: #202b3c;
+}
+
+.login-heading p {
+    color: #8290a3;
+    font-size: 14px;
+}
+
+/* ALERT */
+
+.alert {
+    padding: 13px 15px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 13px;
+}
+
+.alert.error {
+    background: #fff0ef;
+    color: #bd3d35;
+    border: 1px solid #ffd4d0;
+}
+
+.alert.success {
+    background: #eaf8ef;
+    color: #247a43;
+    border: 1px solid #c9ecd4;
+}
+
+/* FORM */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 9px;
+    color: #34445b;
+}
+
+.form-group input {
+    width: 100%;
+    height: 51px;
+    border: 1px solid #dce2eb;
+    background: white;
+    border-radius: 9px;
+    padding: 0 15px;
+    outline: none;
+    font-size: 14px;
+    color: #202b3c;
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #b08335;
+    box-shadow: 0 0 0 3px rgba(176, 131, 53, 0.12);
+}
+
+.form-group input::placeholder {
+    color: #aab3c0;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 100px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #8a6a31;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* BUTTON */
+
+.login-button {
+    width: 100%;
+    height: 52px;
+    background: #1e3558;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: 0.2s;
+}
+
+.login-button span {
+    margin-left: 8px;
+    font-size: 18px;
+}
+
+.login-button:hover {
+    background: #2c4b76;
+    transform: translateY(-1px);
+}
+
+/* FOOTER LOGIN */
+
+.login-note {
+    margin-top: 30px;
+    text-align: center;
+    color: #929eae;
+    font-size: 12px;
+}
+
+.lock-icon {
+    margin-right: 6px;
+    color: #b08335;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .login-container {
+        flex-direction: column;
+    }
+
+    .login-left {
+        width: 100%;
+        min-height: 260px;
+        padding: 30px;
+    }
+
+    .welcome {
+        margin: 45px 0;
+    }
+
+    .welcome h1 {
+        font-size: 34px;
+    }
+
+    .left-footer {
+        display: none;
+    }
+
+    .login-right {
+        width: 100%;
+        padding: 45px 25px;
+    }
+}
