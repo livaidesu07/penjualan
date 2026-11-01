@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pelanggan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pelanggan.css') }}">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>POS PENJUALAN</h2>
+        <p class="sidebar-subtitle">Sistem Informasi Penjualan</p>
+
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/pelanggan" class="active">Data Pelanggan</a>
+            <a href="/barang">Data Barang</a>
+            <a href="/transaksi">Transaksi</a>
+            <a href="/laporan">Laporan</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Data Pelanggan</h1>
+                <p>Kelola informasi pelanggan yang terdaftar.</p>
+            </div>
+            <span class="admin-label">Administrator</span>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="table-card">
+            <div class="table-heading">
+                <div>
+                    <h2>Daftar Pelanggan</h2>
+                    <p>Total {{ pelanggan|length }} data pelanggan</p>
+                </div>
+                <a class="btn-primary" href="{{ url_for('tambah_pelanggan') }}">
+                    + Tambah Pelanggan
+                </a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>ID Pelanggan</th>
+                            <th>Nama Pelanggan</th>
+                            <th>Alamat</th>
+                            <th>No. HP</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pelanggan %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ p[0] }}</td>
+                            <td>{{ p[1] }}</td>
+                            <td>{{ p[2] or '-' }}</td>
+                            <td>{{ p[3] or '-' }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a class="btn-edit"
+                                       href="{{ url_for('edit_pelanggan', id_pelanggan=p[0]) }}">
+                                        Edit
+                                    </a>
+
+                                    <form method="POST"
+                                          action="{{ url_for('hapus_pelanggan', id_pelanggan=p[0]) }}"
+                                          onsubmit="return confirm('Yakin ingin menghapus pelanggan ini?')">
+                                        <button class="btn-delete" type="submit">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="empty-state">
+                                Belum ada data pelanggan.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <a class="back-link" href="/">← Kembali ke Dashboard</a>
+        </section>
+    </main>
+
+</body>
+</html>

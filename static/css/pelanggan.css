@@ -1,0 +1,295 @@
+
+/* =========================================
+   DASHBOARD DATA PELANGGAN
+========================================= */
+
+.table-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(20, 35, 60, 0.04);
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.table-heading h2 {
+    font-size: 20px;
+    margin-bottom: 7px;
+    color: #24344d;
+}
+
+.table-heading p {
+    color: #7c8798;
+    font-size: 13px;
+}
+
+.btn-primary,
+.btn-edit,
+.btn-delete {
+    display: inline-block;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 13px;
+    text-decoration: none;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: #314563;
+    color: white;
+}
+
+.btn-edit {
+    background: #e8eef8;
+    color: #314563;
+}
+
+.btn-delete {
+    background: #fce8e8;
+    color: #a52a2a;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.table-card th,
+.table-card td {
+    padding: 15px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e8ecf3;
+}
+
+.table-card th {
+    background: #f7f8fb;
+    color: #526176;
+    font-weight: 600;
+}
+
+.table-card td {
+    color: #354257;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.action-buttons form {
+    margin: 0;
+}
+
+.alert {
+    padding: 13px 16px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.alert.success {
+    background: #e5f6eb;
+    color: #21683a;
+}
+
+.alert.error {
+    background: #fce8e8;
+    color: #a52a2a;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #7c8798;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: #314563;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+    .table-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+.form-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #f4f6fb;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-card {
+     width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(20, 35, 60, 0.04);
+}
+
+.form-heading {
+    margin-bottom: 25px;
+}
+
+.form-heading h2 {
+    font-size: 24px;
+    color: #24344d;
+    margin-bottom: 7px;
+}
+
+.form-heading p {
+    color: #7c8798;
+    font-size: 13px;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #354257;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    border: 1px solid #d9dfeb;
+    border-radius: 7px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: 2px solid #cbd8ed;
+    border-color: #314563;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+}
+
+.btn-save {
+    display: inline-block;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 15px;
+    background: #314563;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-cancel {
+    display: inline-block;
+    border-radius: 7px;
+    padding: 10px 15px;
+    background: #e8eef8;
+    color: #314563;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+/* RESPONSIVE FORM */
+
+@media (max-width: 900px) {
+    .form-page {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-page {
+        padding: 15px;
+    }
+}
+   .form-card {
+        padding: 20px;
+    }
+.edit-form-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: #f4f6fb;
+}
+
+.edit-form-container .form-card {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(20, 35, 60, 0.04);
+}
+
+.edit-form-container .form-heading {
+    margin-bottom: 22px;
+}
+
+.edit-form-container .form-heading h1 {
+    font-size: 36px;
+    color: #24344d;
+    margin-bottom: 0;
+}
+
+.edit-form-container .form-heading p {
+    color: #202b3c;
+    font-size: 16px;
+}
+
+.edit-form-container .form-group input,
+.edit-form-container .form-group textarea {
+    max-width: 585px;
+}
+
+.edit-form-container .form-group input[readonly] {
+    background: #f8f9fb;
+    color: #526176;
+}

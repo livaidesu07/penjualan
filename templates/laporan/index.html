@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Penjualan</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/laporan.css') }}">
+</head>
+<body>
+
+<aside class="sidebar">
+    <h2>POS PENJUALAN</h2>
+    <p class="sidebar-subtitle">Sistem Informasi Penjualan</p>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Dashboard</a>
+        <a href="{{ url_for('pelanggan') }}">Data Pelanggan</a>
+        <a href="{{ url_for('barang') }}">Data Barang</a>
+        <a href="{{ url_for('transaksi') }}">Transaksi</a>
+        <a href="{{ url_for('laporan') }}" class="active">Laporan</a>
+    </nav>
+</aside>
+
+<main class="main-content">
+
+    <header class="topbar">
+        <div>
+            <h1>Laporan Penjualan</h1>
+            <p>Informasi seluruh transaksi penjualan.</p>
+        </div>
+
+        <a href="{{ url_for('rekapitulasi_laporan') }}" class="btn btn-primary">
+    Rekapitulasi Penjualan
+</a>
+
+        <span class="admin-label">Administrator</span>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <section class="laporan-card">
+
+        <div class="laporan-heading">
+            <div>
+                <h2>Daftar Transaksi</h2>
+                <p>Total {{ laporan|length }} transaksi</p>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="laporan-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>ID Transaksi</th>
+                        <th>Tanggal</th>
+                        <th>Nama Pelanggan</th>
+                        <th>Total Penjualan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for l in laporan %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ l[0] }}</td>
+                        <td>{{ l[1] }}</td>
+                        <td>{{ l[2] }}</td>
+                        <td class="nominal">
+                            Rp {{ "{:,.0f}".format(l[3]|float) }}
+                        </td>
+                        <td>
+                            <a class="btn-detail"
+                               href="{{ url_for('detail_laporan', id_transaksi=l[0]) }}">
+                                Detail
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            Belum ada data penjualan.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="back-link">
+            ← Kembali ke Dashboard
+        </a>
+
+    </section>
+
+</main>
+
+</body>
+</html>

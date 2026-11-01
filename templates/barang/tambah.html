@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Barang</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/barang.css') }}">
+</head>
+<body>
+    <main class="add-form-container">
+        <section class="table-card">
+            <h1>Tambah Barang</h1>
+            <p>Masukkan informasi barang baru.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endwith %}
+
+            <form method="POST">
+                <p>ID Barang</p>
+                <input type="text" name="id_barang" maxlength="10" required>
+
+                <p>Nama Barang</p>
+                <input type="text" name="nama_barang" maxlength="100" required>
+
+                <p>Harga</p>
+                <input type="number" name="harga" min="0" step="0.01" required>
+
+                <p>Stok</p>
+                <input type="number" name="stok" min="0" step="1" required>
+
+                <p>
+                    <button class="btn-primary" type="submit">Simpan Barang</button>
+                    <a class="btn-edit" href="{{ url_for('barang') }}">Batal</a>
+                </p>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

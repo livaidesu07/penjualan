@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Penjualan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>POS PENJUALAN</h2>
+        <p class="sidebar-subtitle">Sistem Informasi Penjualan</p>
+
+        <nav>
+    <a href="{{ url_for('index') }}">Dashboard</a>
+    <a href="{{ url_for('pelanggan') }}">Data Pelanggan</a>
+    <a href="{{ url_for('barang') }}">Data Barang</a>
+    <a href="{{ url_for('transaksi') }}">Transaksi</a>
+    <a href="{{ url_for('laporan') }}">Laporan</a>
+        </nav>
+        
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Selamat datang di Sistem Informasi Penjualan.</p>
+            </div>
+            <span class="admin-label">Administrator</span>
+        </header>
+
+        <section class="welcome-card">
+            <p class="eyebrow">SISTEM INFORMASI PENJUALAN</p>
+            <h2>Kelola Penjualan Lebih Mudah</h2>
+            <p>Pantau data pelanggan, barang, dan transaksi melalui satu halaman.</p>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <p>Total Pelanggan</p>
+                <h2>{{ jumlah_pelanggan }}</h2>
+                <span>Data pelanggan terdaftar</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Total Barang</p>
+                <h2>{{ jumlah_barang }}</h2>
+                <span>Jenis barang tersedia</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Total Transaksi</p>
+                <h2>{{ jumlah_transaksi }}</h2>
+                <span>Transaksi tercatat</span>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>Menu Utama</h2>
+            <p>Pilih menu pada sidebar untuk mengelola data penjualan.</p>
+
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <h3>Data Pelanggan</h3>
+                    <p>Kelola informasi pelanggan.</p>
+                </div>
+
+                <div class="menu-card">
+                    <h3>Data Barang</h3>
+                    <p>Kelola nama, harga, dan stok barang.</p>
+                </div>
+
+                <div class="menu-card">
+                    <h3>Transaksi</h3>
+                    <p>Catat transaksi penjualan.</p>
+                </div>
+
+                <div class="menu-card">
+                    <h3>Laporan</h3>
+                    <p>Lihat ringkasan penjualan.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            Sistem Informasi Penjualan — Python, Flask & MySQL
+        </footer>
+    </main>
+
+</body>
+</html>

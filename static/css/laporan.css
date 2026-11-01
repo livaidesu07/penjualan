@@ -1,0 +1,245 @@
+.laporan-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 25px;
+}
+
+.laporan-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.laporan-heading h2,
+.laporan-card h2 {
+    margin: 0 0 8px;
+    color: #263238;
+}
+
+.laporan-heading p {
+    margin: 0;
+    color: #777777;
+    font-size: 14px;
+}
+
+.laporan-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.laporan-table th,
+.laporan-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 14px;
+}
+
+.laporan-table th {
+    background: #f7f8fa;
+    color: #555555;
+    font-weight: 600;
+}
+
+.laporan-table tbody tr:hover {
+    background: #fafafa;
+}
+
+.nominal {
+    color: #16834a;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.btn-detail {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-detail:hover {
+    background: #1d4ed8;
+}
+
+.empty-state {
+    text-align: center !important;
+    padding: 30px !important;
+    color: #888888;
+}
+
+.informasi-transaksi {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding: 20px;
+    margin: 20px 0 30px;
+    background: #f8f9fb;
+    border-radius: 9px;
+}
+
+.informasi-transaksi div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.informasi-transaksi span {
+    font-size: 13px;
+    color: #777777;
+}
+
+.informasi-transaksi strong {
+    font-size: 14px;
+    color: #333333;
+}
+
+.judul-detail {
+    margin-bottom: 18px !important;
+}
+
+.laporan-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    background: #f0f7f2;
+    border-radius: 8px;
+}
+
+.laporan-total span {
+    font-weight: 600;
+    color: #333333;
+}
+
+.laporan-total strong {
+    font-size: 20px;
+    color: #16834a;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .laporan-card {
+        padding: 16px;
+        overflow-x: auto;
+    }
+
+    .laporan-table {
+        min-width: 750px;
+    }
+
+    .informasi-transaksi {
+        grid-template-columns: 1fr;
+    }
+
+    .laporan-total {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+/* REKAPITULASI PENJUALAN */
+
+.report-card {
+    margin-top: 30px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.report-card h2 {
+    margin-top: 0;
+    color: #1e293b;
+}
+
+.report-description {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.rekap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.rekap-box {
+    padding: 25px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.rekap-box h3 {
+    margin: 0 0 18px;
+    font-size: 16px;
+    color: #475569;
+}
+
+.rekap-box p {
+    margin: 0 0 10px;
+    font-size: 27px;
+    font-weight: bold;
+    color: #15803d;
+}
+
+.rekap-box span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.btn-back {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 11px 18px;
+    background: #64748b;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.btn-back:hover {
+    opacity: 0.88;
+}
+
+@media (max-width: 768px) {
+    .rekap-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.topbar .btn-primary {
+    display: inline-block;
+    padding: 11px 18px;
+    background: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 7px;
+    border: none;
+}
+
+.topbar .btn-primary:hover {
+    background: #1d4ed8;
+}

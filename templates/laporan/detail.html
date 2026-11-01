@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Laporan Penjualan</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/laporan.css') }}">
+</head>
+<body>
+
+<aside class="sidebar">
+    <h2>POS PENJUALAN</h2>
+    <p class="sidebar-subtitle">Sistem Informasi Penjualan</p>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Dashboard</a>
+        <a href="{{ url_for('pelanggan') }}">Data Pelanggan</a>
+        <a href="{{ url_for('barang') }}">Data Barang</a>
+        <a href="{{ url_for('transaksi') }}">Transaksi</a>
+        <a href="{{ url_for('laporan') }}" class="active">Laporan</a>
+    </nav>
+</aside>
+
+<main class="main-content">
+
+    <header class="topbar">
+        <div>
+            <h1>Detail Penjualan</h1>
+            <p>Rincian barang dalam transaksi.</p>
+        </div>
+
+        <span class="admin-label">Administrator</span>
+    </header>
+
+    <section class="laporan-card">
+
+        <h2>Informasi Transaksi</h2>
+
+        <div class="informasi-transaksi">
+            <div>
+                <span>ID Transaksi</span>
+                <strong>{{ transaksi[0] }}</strong>
+            </div>
+
+            <div>
+                <span>Tanggal</span>
+                <strong>{{ transaksi[1] }}</strong>
+            </div>
+
+            <div>
+                <span>Nama Pelanggan</span>
+                <strong>{{ transaksi[2] }}</strong>
+            </div>
+
+            <div>
+                <span>Alamat</span>
+                <strong>{{ transaksi[3] or '-' }}</strong>
+            </div>
+
+            <div>
+                <span>No. HP</span>
+                <strong>{{ transaksi[4] or '-' }}</strong>
+            </div>
+        </div>
+
+        <h2 class="judul-detail">Rincian Barang</h2>
+
+        <div class="table-wrapper">
+            <table class="laporan-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nama Barang</th>
+                        <th>Harga Satuan</th>
+                        <th>Jumlah</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for d in detail_barang %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ d[0] }}</td>
+                        <td>
+                            Rp {{ "{:,.0f}".format(d[1]|float) }}
+                        </td>
+                        <td>{{ d[2] }}</td>
+                        <td class="nominal">
+                            Rp {{ "{:,.0f}".format(d[3]|float) }}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            Tidak ada detail barang.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="laporan-total">
+            <span>Total Penjualan</span>
+            <strong>
+                Rp {{ "{:,.0f}".format(total) }}
+            </strong>
+        </div>
+
+        <a href="{{ url_for('laporan') }}" class="back-link">
+            ← Kembali ke Laporan
+        </a>
+
+    </section>
+
+</main>
+
+</body>
+</html>

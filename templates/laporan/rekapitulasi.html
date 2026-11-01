@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekapitulasi Penjualan</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/laporan.css') }}">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>POS PENJUALAN</h2>
+            <p>Sistem Informasi Penjualan</p>
+        </div>
+
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="{{ url_for('pelanggan') }}">Data Pelanggan</a>
+            <a href="{{ url_for('barang') }}">Data Barang</a>
+            <a href="{{ url_for('transaksi') }}">Transaksi</a>
+            <a href="{{ url_for('laporan') }}" class="active">Laporan</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Rekapitulasi Penjualan</h1>
+                <p>Ringkasan keseluruhan aktivitas penjualan.</p>
+            </div>
+
+            <div class="admin-label">
+                Administrator
+            </div>
+        </header>
+
+        <section class="report-card">
+
+            <h2>Ringkasan Penjualan</h2>
+            <p class="report-description">
+                Berikut merupakan hasil rekapitulasi data penjualan.
+            </p>
+
+            <div class="rekap-grid">
+
+                <div class="rekap-box">
+                    <h3>Jumlah Transaksi</h3>
+                    <p>{{ rekap[0] }}</p>
+                    <span>Transaksi tercatat</span>
+                </div>
+
+                <div class="rekap-box">
+                    <h3>Total Barang Terjual</h3>
+                    <p>{{ rekap[1] }}</p>
+                    <span>Unit barang terjual</span>
+                </div>
+
+                <div class="rekap-box">
+                    <h3>Total Pendapatan</h3>
+                    <p>
+                        Rp {{ "{:,.0f}".format(rekap[2]|float).replace(",", ".") }}
+                    </p>
+                    <span>Total nilai penjualan</span>
+                </div>
+
+            </div>
+
+            <a href="{{ url_for('laporan') }}" class="btn-back">
+                Kembali ke Daftar Laporan
+            </a>
+
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>

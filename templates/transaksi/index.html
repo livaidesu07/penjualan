@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Transaksi Penjualan</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/transaksi.css') }}">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+     <aside class="sidebar">
+        <h2>POS PENJUALAN</h2>
+        <p class="sidebar-subtitle">Sistem Informasi Penjualan</p>
+
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="{{ url_for('pelanggan') }}">Data Pelanggan</a>
+            <a href="{{ url_for('barang') }}">Data Barang</a>
+            <a href="{{ url_for('transaksi') }}" class="active">Transaksi</a>
+            <a href="{{ url_for('laporan') }}">Laporan</a>
+        </nav>
+    </aside>
+
+    <!-- KONTEN UTAMA -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Data Transaksi Penjualan</h1>
+                <p>Informasi seluruh transaksi penjualan.</p>
+            </div>
+
+            <div class="admin-label">
+                Administrator
+            </div>
+        </header>
+
+        <section class="transaksi-container">
+
+            <div class="transaksi-header">
+                <h2>Daftar Transaksi</h2>
+
+                <a href="{{ url_for('tambah_transaksi') }}"
+                   class="btn btn-primary">
+                    + Tambah Transaksi
+                </a>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endwith %}
+
+            <div class="table-wrapper">
+                <table class="transaksi-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>ID Transaksi</th>
+                            <th>Tanggal</th>
+                            <th>Nama Pelanggan</th>
+                            <th>Total Pembelian</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for t in transaksi %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ t[0] }}</td>
+                            <td>{{ t[1] }}</td>
+                            <td>{{ t[2] }}</td>
+                            <td class="transaksi-total">
+                                Rp {{ "{:,.0f}".format(t[3]|float).replace(",", ".") }}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="transaksi-empty">
+                                Belum ada data transaksi.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>

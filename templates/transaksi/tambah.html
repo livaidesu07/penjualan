@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Transaksi</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/transaksi.css') }}">
+
+    <script src="{{ url_for('static', filename='js/transaksi.js') }}"
+            defer></script>
+</head>
+<body>
+
+<div class="transaksi-container">
+
+    <h2>Tambah Transaksi Penjualan</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST"
+          action="{{ url_for('tambah_transaksi') }}"
+          class="transaksi-form">
+
+        <label>Tanggal Transaksi</label>
+        <input type="date"
+               name="tanggal"
+               value="{{ tanggal_hari_ini }}"
+               required>
+
+        <label>Nama Pelanggan</label>
+        <select name="id_pelanggan" required>
+            <option value="">-- Pilih Pelanggan --</option>
+
+            {% for p in pelanggan %}
+                <option value="{{ p[0] }}">
+                    {{ p[0] }} - {{ p[1] }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <h3>Daftar Barang</h3>
+
+        <div id="daftar-barang"></div>
+
+        <button type="button"
+                id="tombol-tambah"
+                class="btn btn-success">
+            + Tambah Barang
+        </button>
+
+        <div class="total-box">
+            Total: <span id="total">Rp 0</span>
+        </div>
+
+        <div class="transaksi-actions">
+            <button type="submit" class="btn btn-primary">
+                Simpan Transaksi
+            </button>
+
+            <a href="{{ url_for('transaksi') }}"
+               class="btn btn-secondary">
+                Kembali
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+<template id="opsi-barang">
+    {% for b in barang %}
+        <option value="{{ b[0] }}"
+                data-harga="{{ b[2] }}"
+                data-stok="{{ b[3] }}">
+            {{ b[1] }} - Rp {{ b[2] }} (Stok: {{ b[3] }})
+        </option>
+    {% endfor %}
+</template>
+
+</body>
+</html>
